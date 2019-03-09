@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after { 
+    box-sizing: inherit; 
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll('div');
+
+  function logText(e) {
+    console.log(this.classList.value);
+    //get to that level, event, and then stop bubbling
+    e.stopPropagation();
+    //console.log(this);
+  }
+
+  //in modern browsers, click actions ripple down (capture), and then bubbles up
+  //then fire events; capture true to capture events from top down
+
+
+  //when the div is clicked on log the value 
+  //set once to only let item be clicked once
+  //ex store checkout buttons 
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false, 
+    once: true
+  }));
+
+
+</script>
+</body>
+</html>
